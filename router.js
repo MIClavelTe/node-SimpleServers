@@ -15,3 +15,7 @@ function homeRoute(req, res) {
       res.end('End\n');
     }  
   }
+
+  module.exports.user = userRoute;
+  module.exports.home = homeRoute;
+  
