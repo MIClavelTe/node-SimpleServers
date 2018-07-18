@@ -10,11 +10,3 @@ const server = http.createServer((req, res) => {
 server.listen(port, hostname, () => {
   console.log(`Server running at http://${hostname}:${port}/`);
 });
-
-function homeRoute(req, res) {
-  if (req.url == "/") {
-    res.setHeader('Content-Type', 'text/plain');
-    res.write('Header\n');
-    res.end('End\n');
-  }  
-}
