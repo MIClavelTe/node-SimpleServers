@@ -18,8 +18,10 @@ function userRoute(req, res) {
 
       });
 
-      // student.on('error', function(error) { 
-      // });
+      student.on('error', function(error) { 
+        res.write('Error (Not Found)\n');
+        res.end(error.message + '\n');
+      });
     }
 }
 
