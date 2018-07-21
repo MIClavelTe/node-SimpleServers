@@ -1,4 +1,5 @@
 var profile = require('./profile.js');
+var render = require('./render.js');
 
 function userRoute(req, res) {
     var username = req.url.replace('/', "");
@@ -28,8 +29,9 @@ function userRoute(req, res) {
 function homeRoute(req, res) {
     if (req.url == "/") {
       res.setHeader('Content-Type', 'text/plain');
-      res.write('Header\n');
-      res.end('End\n');
+      render.view('header', {}, res);
+      render.view('search', {}, res);
+      render.view('footer', {}, res);
     }  
   }
 
