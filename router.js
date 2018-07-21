@@ -5,6 +5,7 @@ function userRoute(req, res) {
     var username = req.url.replace('/', "");
     if (username.length > 0) {
       res.setHeader('Content-Type', 'text/plain');
+      render.view('header', {}, res);
 
       var student = new profile(username)
       student.on('end', function(profileJSON) {
@@ -14,13 +15,15 @@ function userRoute(req, res) {
           badges: profileJSON.badges.length,
           points: profileJSON.points.total
         }
-        res.write(values.username + '\n');
-        res.end(`${values.username} has ${values.badges} badge(s), ${values.points} points`);
+        // res.write(values.username + '\n');
+        // res.end(`${values.username} has ${values.badges} badge(s), ${values.points} points`);
+        render.view('profile', values, res);
+        render.view('footer', {}, res);
 
       });
 
       student.on('error', function(error) { 
-        res.write('Error (Not Found)\n');
+        render.view('error', {error}, res);
         res.end(error.message + '\n');
       });
     }
