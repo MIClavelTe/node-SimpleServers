@@ -19,12 +19,15 @@ function userRoute(req, res) {
         // res.end(`${values.username} has ${values.badges} badge(s), ${values.points} points`);
         render.view('profile', values, res);
         render.view('footer', {}, res);
+        res.end();
 
       });
 
       student.on('error', function(error) { 
         render.view('error', {error}, res);
-        res.end(error.message + '\n');
+        render.view('search', {}, res);
+        render.view('footer', {}, res);
+        res.end();
       });
     }
 }
@@ -35,6 +38,7 @@ function homeRoute(req, res) {
       render.view('header', {}, res);
       render.view('search', {}, res);
       render.view('footer', {}, res);
+      res.end();
     }  
   }
 
