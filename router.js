@@ -1,6 +1,6 @@
 var profile = require('./profile.js');
 var render = require('./render.js');
-
+var queryString = require('querystring');
 var contentType = 'html'
 
 function userRoute(req, res) {
@@ -31,19 +31,27 @@ function userRoute(req, res) {
         render.view('footer', {}, res);
         res.end();
       });
-    }
+  }
 }
 
 function homeRoute(req, res) {
     if (req.url == "/") {
+      if(req.method.toLowerCase() === "get") {
       res.setHeader('Content-Type', contentType);
       render.view('header', {}, res);
       render.view('search', {}, res);
       render.view('footer', {}, res);
       res.end();
-    }  
-  }
+      }  
+      else {
+        req.on("data", function(postBody) {
+          var query = queryString.parse(postBody.toString());
+          res.writeHeader(303, {'Location': '/' + query.username});
+          res.end();
+        });
+      }
+    }
+}
 
-  module.exports.user = userRoute;
-  module.exports.home = homeRoute;
-  
+module.exports.user = userRoute;
+module.exports.home = homeRoute;
