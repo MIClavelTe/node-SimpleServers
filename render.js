@@ -1,8 +1,16 @@
 var fs = require('fs');
 
-function view(template, values, response) {
-    var fileContents = fs.readFileSync('Views/' + template + '.html');
-    response.write(fileContents);
-}
-
-module.exports.view = view;
+function mergeValues(values, content) {
+    for(var key in values) {
+      content = content.replace("{{" + key + "}}", values[key]);
+    }
+    return content;
+  }
+  
+  function view(templateName, values, reponse) {
+    var fileContents = fs.readFileSync('./views/' + templateName + '.html', {encoding: "utf8"});
+    fileContents = mergeValues(values, fileContents);
+    reponse.write(fileContents);
+  }
+  
+  module.exports.view = view;
