@@ -1,10 +1,12 @@
 var profile = require('./profile.js');
 var render = require('./render.js');
 
+var contentType = 'html'
+
 function userRoute(req, res) {
     var username = req.url.replace('/', "");
     if (username.length > 0) {
-      res.setHeader('Content-Type', 'text/plain');
+      res.setHeader('Content-Type', contentType);
       render.view('header', {}, res);
 
       var student = new profile(username)
@@ -34,7 +36,7 @@ function userRoute(req, res) {
 
 function homeRoute(req, res) {
     if (req.url == "/") {
-      res.setHeader('Content-Type', 'text/plain');
+      res.setHeader('Content-Type', contentType);
       render.view('header', {}, res);
       render.view('search', {}, res);
       render.view('footer', {}, res);
