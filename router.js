@@ -8,6 +8,7 @@ function userRoute(req, res) {
     if (username.length > 0) {
       res.setHeader('Content-Type', contentType);
       render.view('header', {}, res);
+      render.view('style', {}, res);
 
       var student = new profile(username)
       student.on('end', function(profileJSON) {
@@ -39,6 +40,7 @@ function homeRoute(req, res) {
       if(req.method.toLowerCase() === "get") {
       res.setHeader('Content-Type', contentType);
       render.view('header', {}, res);
+      render.view('style', {}, res);
       render.view('search', {}, res);
       render.view('footer', {}, res);
       res.end();
